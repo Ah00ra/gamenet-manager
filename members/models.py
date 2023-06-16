@@ -13,11 +13,18 @@ class Member(models.Model):
     def __str__(self) -> str:
         return f"{self.phonenumber}, {self.lastname}, {self.wallet}"
 
+class Game(models.Model):
+    game = models.CharField(max_length=30)
+    price_per_hour = models.IntegerField()
 
+    def __str__(self) -> str:
+        return f"{self.game}, {self.price_per_hour}"
+    
+    
 class Payment(models.Model):
     GAME_CHOICES = (("8", '8 ball'),("PS4", "play staion4"))
     member = models.ForeignKey(Member, on_delete=models.CASCADE)
-    game = models.CharField(choices=GAME_CHOICES, max_length=100)
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
     payment = models.IntegerField()
     use_wallet = models.BooleanField()
 
